@@ -26,7 +26,7 @@ VALIDATE(){
         echo -e "$2 is $R FAILED..$N" | tee -a $LOG_FILE
         exit 1
     else 
-        echo -e "$2 is $G SUCCESSFULL.. $N" |tee -a $LOG_FILE
+        echo -e "$2 is $G SUCCESSFULL.. $N" | tee -a $LOG_FILE
     fi
 }
 
@@ -53,7 +53,8 @@ cd /usr/share/nginx/html
 unzip /tmp/frontend.zip &>>$LOG_FILE
 VALIDATE $? "Extracting Frontend code"
 
-systemctl restart nginx
+systemctl restart nginx 
+VALIDATE $? "Restarting nginx"
 
 
 
