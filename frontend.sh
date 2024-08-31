@@ -13,7 +13,7 @@ N="\e[0m"
 USER_ID=$(id -u)
 
 CHECK_ROOT(){
-    if [ USER_ID -ne 0 ]
+    if [ $USER_ID -ne 0 ]
     then 
         echo -e " $R Please login with root user privilages $N" | tee -a $LOG_FILE
         exit 1
