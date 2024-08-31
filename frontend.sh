@@ -1,38 +1,37 @@
-#!/bin/bash
+#!/bin/bash 
 
 LOGS_FOLDER="/var/log/expense"
 SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
-TIMESTAMP=$(date +%Y-%m-%d-%h-%m-%s)
-mkdir -p LOGS_FOLDER
+TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
 LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME-$TIMESTAMP.log"
+mkdir -p $LOGS_FOLDER
 
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
-USER_ID=$(id -u)
+USERID=$(id -u)
 
 CHECK_ROOT(){
-    if [ $USER_ID -ne 0 ]
+    if [ $USERID -ne 0 ]
     then 
-        echo -e " $R Please login with root user privilages $N" | tee -a $LOG_FILE
+        echo -e "$R please run this script with root privileges $N" | tee -a $LOG_FILE
         exit 1
     fi
 }
 
 VALIDATE(){
-    if [ $? -ne 0 ]
-    then 
+    if [ $1 -ne 0 ]
+    then
         echo -e "$2 is $R FAILED..$N" | tee -a $LOG_FILE
         exit 1
-    else 
-        echo -e "$2 is $G SUCCESSFULL.. $N" | tee -a $LOG_FILE
+    else
+        echo -e "$2 is  $G SUCCESSFULL.. $N" | tee -a $LOG_FILE
     fi
 }
 
-echo "Script started executing at $(date)" | tee -a $LOG_FILE
-
-CHECK_ROOT
+echo "Script started executing at: $(date)" | tee -a $LOG_FILE
+CHECK_ROOT 
 
 dnf install nginx -y &>>$LOG_FILE
 VALIDATE $? "Installing Nginx"
