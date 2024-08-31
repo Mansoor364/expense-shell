@@ -42,7 +42,7 @@ VALIDATE $? "Enabled MySQL server"
 systemctl start mysqld &>>$LOG_FILE
 VALIDATE $? "Started MySQL server" 
 
-mysql -h localhost -u root -pExpenseApp -e 'show databases;' &>>$LOG_FILE
+mysql -h mysql.mansoor.fun -u root -pExpenseApp -e 'show databases;' &>>$LOG_FILE
 if [ $? -ne 0 ]
  then 
     echo -e "$Y MySQL root password is not setup, setting now $N" | tee -a $LOG_FILE
