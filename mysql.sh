@@ -36,11 +36,18 @@ CHECK_ROOT
 dnf install mysql-server -y  &>>$LOG_FILE
 VALIDATE $? "Installing MySQL server"  
 
-systemctl enable mysqld &>>$LOG_FILE
-VALIDATE $? "Enabled MySQL server"
+systemctl enable mysqld &>>$LOG_FILE 
+VALIDATE $? "Enabled MySQL server"   
 
 systemctl start mysqld &>>$LOG_FILE
-VALIDATE $? "Started MySQL server"
+VALIDATE $? "Started MySQL server" 
 
-mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOG_FILE
-VALIDATE $? "setting up root password"
+mysql -h localhost -u root -pExpenseApp -e 'show databases;' &>>$LOG_FILE
+if [ $? -ne 0 ]
+ then 
+    echo -e "$Y MySQL root password is not setup, setting now $N" | tee -a $LOG_FILE
+    mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOG_FILE
+    VALIDATE $? "Setting up root password"
+else 
+    echo -e "MySQL root password is already set-up $Y Skipping... $N" | tee -a $LOG_FILE
+fi
