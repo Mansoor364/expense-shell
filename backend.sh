@@ -71,7 +71,7 @@ cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.serv
 dnf install mysql -y &>>$LOG_FILE
 VALIDATE $? "Installing MySQL client"
 
-mysql -h mysql.mansoor.fun -u root -pExpenseApp@1 < /app/schema/backend.sql &>>$LOG_FILE
+mysql -h mysql.mansoor.fun -uroot -pExpenseApp@1 < /app/schema/backend.sql 
 VALIDATE $? "Schema loading"
 
 systemctl daemon-reload &>>$LOG_FILE
