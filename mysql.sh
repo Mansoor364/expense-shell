@@ -45,7 +45,7 @@ VALIDATE $? "Started MySQL server"
 mysql -h mysql.mansoor.fun -u root -pExpenseApp -e 'show databases;' &>>$LOG_FILE
 if [ $? -ne 0 ]
  then 
-    echo -e "$Y MySQL root password is not setup, setting now $N" | tee -a $LOG_FILE
+    echo -e "$Y MySQL root password is not setup, setting now $N" >>$LOG_FILE
     mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOG_FILE
     VALIDATE $? "Setting up root password"
 else 
