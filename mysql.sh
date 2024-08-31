@@ -46,7 +46,7 @@ mysql -h mysql.mansoor.fun -u root -pExpenseApp -e 'show databases;' &>>$LOG_FIL
 if [ $? -ne 0 ]
  then 
     echo -e "$Y MySQL root password is not setup, setting now $N" >>$LOG_FILE
-    mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOG_FILE
+    mysql_secure_installation --set-root-pass ExpenseApp@1 
     VALIDATE $? "Setting up root password"
 else 
     echo -e "MySQL root password is already set-up $Y Skipping... $N" | tee -a $LOG_FILE
